@@ -7,7 +7,7 @@ class TwitterController {
 
     async getTrend(query){
         try{
-            return await this.get(`twitter?query=${query}`)
+            return await this.get(`twitter/${query}`)
         }catch(e){
             console.error(e)
         }
@@ -25,9 +25,9 @@ class TwitterController {
         })
 
         if(response.statusText !== "OK")
-            throw "Failed to get info from Twitter"
+            throw Error("Failed to get info from Twitter")
 
-        return response.json()
+        return await response.json()
     }
 }
 
