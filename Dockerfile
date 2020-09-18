@@ -110,5 +110,8 @@ COPY . ./
 RUN yarn install
 # RUN npm install react-scripts@3.4.1 -g --silent
 
+RUN yarn build
+RUN yarn global add serve
+
 # start app
-CMD ["yarn", "start"]
+CMD ["serve", "-s", "build"]
