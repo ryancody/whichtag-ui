@@ -1,5 +1,6 @@
 # pull official base image
-FROM node:latest-alpine
+FROM alpine:3.10
+ENV NODE_VERSION 14.11.0
 
 # set working directory
 WORKDIR /app
