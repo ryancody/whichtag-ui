@@ -107,8 +107,8 @@ COPY package-lock.json ./
 COPY . ./
 
 # install
-RUN npm install --silent
-RUN npm install react-scripts@3.4.1 -g --silent
+RUN yarn install
+# RUN npm install react-scripts@3.4.1 -g --silent
 
 # start app
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
