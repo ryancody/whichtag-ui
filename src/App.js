@@ -1,5 +1,5 @@
 import React from 'react'
-import './sass/style.scss'
+import './css/style.css'
 import TwitterTrendManager from './components/TwitterTrendManager'
 import Greeting from './components/Greeting'
 import TwitterController from './controllers/TwitterController'
