@@ -105,10 +105,9 @@ COPY package.json ./
 # add app
 COPY . ./
 
-# install
-RUN yarn install
-# RUN npm install react-scripts@3.4.1 -g --silent
+RUN npm i -g node-sass
 
+RUN yarn install
 RUN yarn build
 RUN yarn global add serve
 
