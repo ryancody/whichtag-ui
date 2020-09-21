@@ -12,9 +12,7 @@ function App() {
     <div className='App' style={style}>
       <div className='section'>
         <div className='container'>
-
-            <h1 className='title'>Coming <span className='has-text-primary'>soon</span></h1>
-        
+            <h1 className='title'>coming<span className='has-text-primary'>soon</span></h1>
         </div>
       </div>
     </div>
