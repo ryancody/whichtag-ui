@@ -19,7 +19,6 @@ function TrendStats(props) {
             let spanMinutes = (end - start) / 60;
             console.log(start, end)
 
-            let lpm = queryData.metricSummary.likes / spanMinutes
             let rtpm = queryData.metricSummary.retweets / spanMinutes
             let tpm = queryData.tweets.length / spanMinutes
 

@@ -1,27 +1,17 @@
-FROM ubuntu:latest
-FROM node:latest
-
-# RUN apt-get update && apt-get upgrade
-# RUN apt-get install xsel
-
-# set working directory
-WORKDIR /app
-
-# install app dependencies
-COPY package.json ./
-
-# add app
-COPY . ./
-
+# build environment
+FROM node:latest as builder
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+COPY . /usr/src/app
 RUN yarn install
-RUN yarn css-build
-RUN yarn build
-RUN yarn global add serve
+RUN yarn run build
 
-WORKDIR /app/build
-
-# add `/app/node_modules/.bin` to $PATH
-# ENV PATH /app/node_modules/.bin:$PATH
-
-# start app
-CMD ["serve", "-s", "build"]
+# production environment
+FROM nginx:1.19-alpine
+RUN rm -rf /etc/nginx/conf.d
+RUN mkdir -p /etc/nginx/conf.d
+COPY ./default.conf /etc/nginx/conf.d/
+COPY --from=builder /usr/src/app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
