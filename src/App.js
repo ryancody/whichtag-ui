@@ -6,7 +6,7 @@ import TwitterController from './controllers/TwitterController'
 
 function App() {
 
-  const twitterController = new TwitterController('https://localhost:5001/');
+  const twitterController = new TwitterController(process.env.API_URL);
 
   return (
     <div className='App'>
