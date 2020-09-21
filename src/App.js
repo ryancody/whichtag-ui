@@ -1,22 +1,20 @@
 import React from 'react'
 import './css/style.css'
-import TwitterTrendManager from './components/TwitterTrendManager'
-import Greeting from './components/Greeting'
-import TwitterController from './controllers/TwitterController'
-const twitterController = new TwitterController(process.env.API_URL);
 
 function App() {
 
+  const style = {        
+    position: 'absolute', left: '50%', top: '50%',
+    transform: 'translate(-50%, -50%)'
+  }
+
   return (
-    <div className='App'>
+    <div className='App' style={style}>
       <div className='section'>
         <div className='container'>
-          <Greeting />
-        </div>
-      </div>
-      <div className='section'>
-        <div className='container'>
-          <TwitterTrendManager twitterController={twitterController} />
+
+            <h1 className='title'>Coming <span className='has-text-primary'>soon</span></h1>
+        
         </div>
       </div>
     </div>
