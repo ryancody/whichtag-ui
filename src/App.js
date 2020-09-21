@@ -3,10 +3,9 @@ import './css/style.css'
 import TwitterTrendManager from './components/TwitterTrendManager'
 import Greeting from './components/Greeting'
 import TwitterController from './controllers/TwitterController'
+const twitterController = new TwitterController(process.env.API_URL);
 
 function App() {
-
-  const twitterController = new TwitterController(process.env.API_URL);
 
   return (
     <div className='App'>

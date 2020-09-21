@@ -2,6 +2,10 @@ const path = require('path')
 
 class TwitterController {
     constructor(baseUrl){
+        if (!baseUrl){
+            throw new Error('TwitterController received invalid baseUrl: {baseUrl}')
+        }
+
         this.baseUrl = baseUrl
     }
 
