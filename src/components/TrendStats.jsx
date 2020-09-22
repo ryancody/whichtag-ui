@@ -29,6 +29,8 @@ function TrendStats(props) {
                         <td>{spanMinutes.toFixed(2)}</td>
                     </tr>
         }
+
+        return null
     })
 
     return(
