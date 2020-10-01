@@ -2,31 +2,46 @@ import React from 'react'
 
 function TrendStats(props) {
     let dataIsEmpty = (obj) => {
-        return Object.keys(obj).length === 0 && obj.constructor === Object
+        return !obj || (Object.keys(obj).length === 0 && obj.constructor === Object)
     }
 
-    //console.log('propsdata',props.data)
-
-    let queries = [...props.data.keys()]
-
-    let table = queries.map(query => {
+    let table = [...props.data.keys()].map(query => {
         if(!dataIsEmpty(props.data.get(query))){
             let queryData = props.data.get(query)
+            let oldestTweetCreatedAt = Date.parse(queryData.oldestTweetCreatedAt)
+            let queryTime = Date.parse(queryData.queriedAt)
+            let spanSeconds = (queryTime - oldestTweetCreatedAt) / 1000
 
-            let oldestTweetCreatedAt = queryData.oldestTweetCreatedAt
-            let start = Date.parse(oldestTweetCreatedAt)
-            let end = Date.parse(queryData.queriedAt)
-            let spanMinutes = (end - start) / 60;
-            console.log(start, end)
+            let message = ''
+            let emoji = ''
+            let tweetPlurality = queryData.tweets.length !== 1 ? 'tweets' : 'tweet'
 
-            let rtpm = queryData.metricSummary.retweets / spanMinutes
-            let tpm = queryData.tweets.length / spanMinutes
+            if(spanSeconds < 60){
+                let seconds = Math.round(spanSeconds)
+                
+                message = `${queryData.tweets.length} ${tweetPlurality} in the last ${seconds} seconds`
+                emoji = '🚀'
+            } else if (spanSeconds < 60 * 60) {
+                let minutes = Math.round(spanSeconds / 60) + 1
 
-            return <tr key={query}>
+                message = `${queryData.tweets.length} ${tweetPlurality} in the last ${minutes} minutes`
+                emoji = '🔥'
+            } else if (spanSeconds < 60 * 60 * 24) {
+                let hours = Math.round(spanSeconds / (60 * 60)) + 1
+                
+                message = `${queryData.tweets.length} ${tweetPlurality} in the last ${hours} hours`
+                emoji = '😑'
+            } else {
+                let days = Math.round(spanSeconds / (60 * 60 * 24)) + 1
+                
+                message = `${queryData.tweets.length} ${tweetPlurality} in the last ${days} days`
+                emoji = '🥶'
+            }
+
+            return <tr className='is-size-4' key={query}>
+                        <td>{emoji}</td>
                         <td>{query}</td>
-                        <td>{rtpm.toFixed(3)}</td>
-                        <td>{tpm.toFixed(3)}</td>
-                        <td>{spanMinutes.toFixed(2)}</td>
+                        <td>{message}</td>
                     </tr>
         }
 
@@ -35,14 +50,6 @@ function TrendStats(props) {
 
     return(
         <table className='table'>
-            <thead>
-                <tr>
-                    <th>Query</th>
-                    <th>RTs per minute</th>
-                    <th>tweets per minute</th>
-                    <th>span (minutes)</th>
-                </tr>
-            </thead>
             <tbody>
                 {table}
             </tbody>
