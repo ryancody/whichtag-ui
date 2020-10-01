@@ -16,11 +16,24 @@ class Input extends Component {
             this.submitInput()
     }
 
+    cleanFirstChar = content => {
+        if(content[0] === '#'){
+            
+            content = content.substring(1, content.length)
+        }
+
+        return content
+    }
+
     submitInput = () => {
-        if(this.state.content === '')
+        let content = this.state.content.trim()
+
+        content = this.cleanFirstChar(content)
+
+        if(content === '')
             return
 
-        this.props.processInput(this.state.content)
+        this.props.processInput(content)
         this.setState({ content: '' })
     }
 
@@ -28,7 +41,7 @@ class Input extends Component {
         return (
             <div className='field has-addons'>
                 <div className={`control`}>
-                    <input className={`input`} type='text' placeholder={`what are you looking for?`}
+                    <input className={`input`} type='text' placeholder={`search`}
                         onChange={this.handleChange}
                         onKeyUp={this.handleOnKeyUp}
                         value={this.state.content}

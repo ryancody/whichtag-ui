@@ -15,6 +15,7 @@ class TwitterTrendManager extends Component {
 
     handleCloseTag = (query) => {
         let newState = new Map(this.state.queries)
+        
         newState.delete(query)
         
         this.setState({queries: newState})
@@ -22,9 +23,9 @@ class TwitterTrendManager extends Component {
     
     processInput = async (query) => {
         this.setState({queries: this.state.queries.set(query, {})})
-
+ 
         let response = await this.state.twitterController.getTrend(query)
-
+ 
         this.setState({queries: this.state.queries.set(query, response)})
     }
 
@@ -35,7 +36,11 @@ class TwitterTrendManager extends Component {
             <div>
                 <Input processInput={this.processInput} />
                 <div className='tags'>
-                    {[...queries.keys()].map(query => <QueryTag query={query} data={queries.get(query)} key={query} handleCloseTag={() => this.handleCloseTag(query)} />)}
+                    {[...queries.keys()].map(query => 
+                        <QueryTag query={query} 
+                            data={queries.get(query)} 
+                            key={query} handleCloseTag={() => this.handleCloseTag(query)} 
+                        />)}
                 </div>
                 <div className='container'>
                     <TrendStats data={queries} />
