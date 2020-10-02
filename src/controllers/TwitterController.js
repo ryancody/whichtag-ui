@@ -9,6 +9,14 @@ class TwitterController {
         this.baseUrl = baseUrl
     }
 
+    async testConnection(){
+        let response = await this.get('status')
+
+        if(response == null){
+            throw new Error("Connection Error")
+        }
+    }
+
     async getTrend(query){
         try{
             return await this.get(`twitter/${query}`)
@@ -18,8 +26,7 @@ class TwitterController {
     }
 
     async get(endpoint){
-
-        var url = path.join(this.baseUrl, endpoint);
+        let url = path.join(this.baseUrl, endpoint)
 
         let response = await fetch(url, {
             'method':'get',
@@ -28,8 +35,8 @@ class TwitterController {
             }
         })
 
-        if(response.statusText !== "OK")
-            throw Error("Failed to get info from Twitter")
+        if(response.status !== 200)
+            throw Error("Failed to retrieve data from API")
 
         return await response.json()
     }
