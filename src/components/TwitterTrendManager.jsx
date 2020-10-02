@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Trend from '../models/Trend'
 import Input from './Input'
 import QueryTag from './QueryTag'
 import TrendStats from './TrendStats'
@@ -9,41 +10,44 @@ class TwitterTrendManager extends Component {
 
         this.state = {
             twitterController: props.twitterController,
-            queries: new Map()
+            trends: new Map()
         }
     }
 
     handleCloseTag = (query) => {
-        let newState = new Map(this.state.queries)
+        let newState = new Map(this.state.trends)
         
         newState.delete(query)
         
-        this.setState({queries: newState})
+        this.setState({trends: newState})
     }
     
     processInput = async (query) => {
-        this.setState({queries: this.state.queries.set(query, {})})
+        let trend = new Trend(query)
+        this.setState({trends: this.state.trends.set(query, trend)})
  
         let response = await this.state.twitterController.getTrend(query)
+
+        trend.processData(response)
  
-        this.setState({queries: this.state.queries.set(query, response)})
+        this.setState({trends: this.state.trends.set(query, trend)})
     }
 
     render() {
-        let queries = this.state.queries
+        let trends = [...this.state.trends.values()]
 
         return (
             <div>
                 <Input processInput={this.processInput} />
                 <div className='tags'>
-                    {[...queries.keys()].map(query => 
-                        <QueryTag query={query} 
-                            data={queries.get(query)} 
-                            key={query} handleCloseTag={() => this.handleCloseTag(query)} 
+                    {trends.map(trend => 
+                        <QueryTag
+                            trend={trend} 
+                            key={trend.query} handleCloseTag={() => this.handleCloseTag(trend.query)}
                         />)}
                 </div>
                 <div className='container'>
-                    <TrendStats data={queries} />
+                    <TrendStats trends={trends.filter(trend => trend.isSuccess)} />
                 </div>
             </div>
         )

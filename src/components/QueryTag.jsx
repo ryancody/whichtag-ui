@@ -1,16 +1,18 @@
 import React from 'react'
 
 function QueryTag (props) {
+    let styleTag = 'is-light is-info'
 
-    let dataIsEmpty = (obj) => {
-        return !obj || (Object.keys(obj).length === 0 && obj.constructor === Object)
+    if(props.trend.isComplete && props.trend.isSuccess){
+        styleTag = 'is-primary'
+    } else if (props.trend.isComplete && !props.trend.isSuccess) {
+        styleTag = 'is-warning'
     }
 
     return(
-        <span
-            className={`tag ${!dataIsEmpty(props.data) ? 'is-primary' : ''} is-large`}>
-            {props.query}
-            {!dataIsEmpty(props.data) ? <button className='delete' onClick={props.handleCloseTag}>&#10006;</button> : null}
+        <span className={`${styleTag} is-large tag`}>
+            {props.trend.query}
+            {props.trend.isComplete ? <button className='delete' onClick={props.handleCloseTag}></button> : null}
         </span>
     )
 }

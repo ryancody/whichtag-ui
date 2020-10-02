@@ -16,20 +16,13 @@ class Input extends Component {
             this.submitInput()
     }
 
-    cleanFirstChar = content => {
-        if(content[0] === '#'){
-            
-            content = content.substring(1, content.length)
-        }
-
-        return content
+    cleanHashtag = content => {
+        return content.replace("#", " ").trim()
     }
 
     submitInput = () => {
-        let content = this.state.content.trim()
-
-        content = this.cleanFirstChar(content)
-
+        let content = this.cleanHashtag(this.state.content)
+        
         if(content === '')
             return
 
