@@ -26,7 +26,7 @@ class TwitterController {
     }
 
     async get(endpoint){
-        let url = new URL(this.baseUrl, endpoint).href
+        let url = new URL(endpoint, this.baseUrl).href
 
         let response = await fetch(url, {
             'method':'get',
