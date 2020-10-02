@@ -1,5 +1,3 @@
-const path = require('path')
-
 class TwitterController {
     constructor(baseUrl){
         if (!baseUrl){

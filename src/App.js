@@ -15,8 +15,6 @@ function App() {
         <div className='container'>
           <Greeting />
         </div>
-      </div>
-      <div className='section'>
         <div className='container'>
           <ErrorBoundary>
             <TwitterTrendManager twitterController={twitterController} />
