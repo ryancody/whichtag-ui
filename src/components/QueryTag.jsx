@@ -9,14 +9,15 @@ function QueryTag (props) {
                     <button className='delete' onClick={props.handleCloseTag} ></button>
                 </span>
     } else if (props.trend.isComplete && !props.trend.isSuccess) {
-        elem =  <span className={`is-warning is-large tag has-tooltip-arrow`} data-tooltip={"Not Found"}>
+        elem =  <span className={`is-warning is-large tag has-tooltip-arrow`} data-tooltip={"Not Found 😪"}>
                     {props.trend.query}
                     <button className='delete' onClick={props.handleCloseTag} ></button>
                 </span>
     } else {
         elem =  <span className={`is-light is-large tag`}>
                     {props.trend.query}
-                </span>
+                    <div className='loading-spin' />
+                </span >
     }
 
     return(elem)
