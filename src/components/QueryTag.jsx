@@ -1,20 +1,25 @@
 import React from 'react'
 
 function QueryTag (props) {
-    let styleTag = 'is-light is-info'
+    let elem = null
 
     if(props.trend.isComplete && props.trend.isSuccess){
-        styleTag = 'is-primary'
+        elem =  <span className={`is-primary is-large tag`}>
+                    {props.trend.query}
+                    <button className='delete' onClick={props.handleCloseTag} ></button>
+                </span>
     } else if (props.trend.isComplete && !props.trend.isSuccess) {
-        styleTag = 'is-warning'
+        elem =  <span className={`is-warning is-large tag has-tooltip-arrow`} data-tooltip={"Not Found"}>
+                    {props.trend.query}
+                    <button className='delete' onClick={props.handleCloseTag} ></button>
+                </span>
+    } else {
+        elem =  <span className={`is-light is-large tag`}>
+                    {props.trend.query}
+                </span>
     }
 
-    return(
-        <span className={`${styleTag} is-large tag`}>
-            {props.trend.query}
-            {props.trend.isComplete ? <button className='delete' onClick={props.handleCloseTag}></button> : null}
-        </span>
-    )
+    return(elem)
 }
 
 export default QueryTag

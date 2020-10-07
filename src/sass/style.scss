@@ -19,6 +19,10 @@ $text:              $grey-lightest;
 $text-light:        $grey-lightest;
 $text-strong:       $grey-lightest;
 $link:              $turquoise;
+$link-hover:        $turquoise;
+$link-focus:        $turquoise;
+$link-focus-border: $turquoise;
+$link-active-border:$grey-darker;
 
 //form
 $input-color: $grey-lightest;
@@ -26,3 +30,8 @@ $input-background-color: rgba($grey-lightest, .25);
 
 // prior vars gets passed in to bulma styling
 @import "../../node_modules/bulma/bulma.sass";
+
+$tooltip-background-color:  $grey-lightest;
+$tooltip-color: $grey-darker;
+
+@import "../../node_modules/@creativebulma/bulma-tooltip/src/sass/index.sass";
