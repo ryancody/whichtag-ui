@@ -25,8 +25,12 @@ class TwitterTrendManager extends Component {
     processInput = async (query) => {
         let trend = new Trend(query)
         this.setState({trends: this.state.trends.set(query, trend)})
+
+        let body = {
+            siblings: [...this.state.trends.keys()].filter(i => i !== query)
+        }
  
-        let response = await this.state.twitterController.getTrend(query)
+        let response = await this.state.twitterController.postTrendQuery(query, body)
 
         trend.processData(response)
  

@@ -7,30 +7,23 @@ class TwitterController {
         this.baseUrl = baseUrl
     }
 
-    async testConnection(){
-        let response = await this.get('status')
-
-        if(response == null){
-            throw new Error("Connection Error")
-        }
-    }
-
-    async getTrend(query){
+    async postTrendQuery(query, body){
         try{
-            return await this.get(`twitter/${query}`)
+            return await this.post(`twitter/${query}`, body)
         }catch(e){
             console.error(e)
         }
     }
 
-    async get(endpoint){
+    async post(endpoint, body){
         let url = new URL(endpoint, this.baseUrl).href
 
         let response = await fetch(url, {
-            'method':'get',
+            'method':'post',
             'headers': {
                 
-            }
+            },
+            'body':body
         })
 
         if(response.status !== 200)
