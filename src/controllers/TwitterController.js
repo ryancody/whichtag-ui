@@ -19,11 +19,11 @@ class TwitterController {
         let url = new URL(endpoint, this.baseUrl).href
 
         let response = await fetch(url, {
-            'method':'post',
+            'method':'POST',
             'headers': {
-                
+                'Content-Type': 'application/json'
             },
-            'body':body
+            'body': JSON.stringify(body)
         })
 
         if(response.status !== 200)
