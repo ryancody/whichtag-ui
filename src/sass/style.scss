@@ -36,6 +36,9 @@ $tooltip-color: $grey-darker;
 
 @import "../../node_modules/@creativebulma/bulma-tooltip/src/sass/index.sass";
 
+.not-bordered {
+    border: none;
+}
 
 .loading-spin {
     width: 20px;
